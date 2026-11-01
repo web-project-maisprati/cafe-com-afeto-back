@@ -1,6 +1,8 @@
 package com.cafecomafeto.api.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.OffsetDateTime;
 
@@ -24,6 +26,7 @@ public class Usuario {
     @Column(nullable = false)
     private String cidade;
 
+    @JdbcTypeCode(SqlTypes.CHAR)
     @Column(nullable = false, length = 2)
     private String estado;
 
@@ -35,6 +38,9 @@ public class Usuario {
 
     @Column(name = "criado_em", nullable = false)
     private OffsetDateTime criadoEm;
+
+    @Column(nullable = false)
+    private boolean voluntario;
 
     public Usuario() {
     }
@@ -110,4 +116,8 @@ public class Usuario {
     public void setCriadoEm(OffsetDateTime criadoEm) {
         this.criadoEm = criadoEm;
     }
+
+    public boolean isVoluntario() { return voluntario; }
+
+    public void setVoluntario(boolean voluntario) { this.voluntario = voluntario; }
 }
