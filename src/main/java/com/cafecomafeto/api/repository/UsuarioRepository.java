@@ -1,4 +1,7 @@
 package com.cafecomafeto.api.repository;
 
-public interface UsuarioRepository {
+import com.cafecomafeto.api.model.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 }
