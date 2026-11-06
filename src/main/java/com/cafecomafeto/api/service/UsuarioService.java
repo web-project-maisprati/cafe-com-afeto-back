@@ -1,5 +1,7 @@
 package com.cafecomafeto.api.service;
 
+import com.cafecomafeto.api.exception.EmailJaCadastradoException;
+import com.cafecomafeto.api.exception.UsuarioNaoEncontradoException;
 import com.cafecomafeto.api.model.Usuario;
 import com.cafecomafeto.api.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -18,14 +20,17 @@ public class UsuarioService {
     public Usuario cadastrarUsuario(Usuario usuario) {
 
         if (verificarEmail(usuario.getEmail())) {
-            throw new IllegalArgumentException("Email já cadastrado!");
+            throw new EmailJaCadastradoException("Email já cadastrado!");
         }
 
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> buscarUsuarioId(Long id) {
-        return usuarioRepository.findById(id);
+    public Usuario buscarUsuarioId(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(
+                        "Usuário não encontrado!"
+                ));
     }
 
     public boolean usuarioExiste(Long id) {
