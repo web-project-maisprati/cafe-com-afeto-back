@@ -4,10 +4,7 @@ import com.cafecomafeto.api.dto.UsuarioCadastroDTO;
 import com.cafecomafeto.api.dto.UsuarioRespostaDTO;
 import com.cafecomafeto.api.model.Usuario;
 import com.cafecomafeto.api.service.UsuarioService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -44,4 +41,22 @@ public class UsuarioController {
                 usuarioSalvo.getCriadoEm()
         );
     }
+
+    @GetMapping("/{id}")
+    public UsuarioRespostaDTO buscarUsuarioId(@PathVariable Long id) {
+
+        Usuario usuario = usuarioService.buscarUsuarioId(id);
+
+        return new UsuarioRespostaDTO(
+                usuario.getId(),
+                usuario.getNomeCompleto(),
+                usuario.getEmail(),
+                usuario.getCidade(),
+                usuario.getEstado(),
+                usuario.getTipoUsuario(),
+                usuario.isVoluntario(),
+                usuario.getCriadoEm()
+        );
+    }
+
 }

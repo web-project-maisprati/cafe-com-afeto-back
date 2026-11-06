@@ -45,6 +45,13 @@ public class Usuario {
     public Usuario() {
     }
 
+    @PrePersist
+    public void prePersist() {
+        if (criadoEm == null) {
+            criadoEm = OffsetDateTime.now();
+        }
+    }
+
     public Long getId() {
         return id;
     }
