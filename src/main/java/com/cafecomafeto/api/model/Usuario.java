@@ -40,7 +40,7 @@ public class Usuario {
     private OffsetDateTime criadoEm;
 
     @Column(nullable = false)
-    private boolean voluntario;
+    private boolean voluntario = false;
 
     public Usuario() {
     }
