@@ -1,11 +1,13 @@
 package com.cafecomafeto.api.service;
 
+import com.cafecomafeto.api.dto.UsuarioAtualizacaoDTO;
 import com.cafecomafeto.api.exception.EmailJaCadastradoException;
 import com.cafecomafeto.api.exception.UsuarioNaoEncontradoException;
 import com.cafecomafeto.api.model.Usuario;
 import com.cafecomafeto.api.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,5 +45,25 @@ public class UsuarioService {
 
     public boolean verificarEmail(String email){
         return usuarioRepository.existsByEmail(email);
+    }
+
+    public List<Usuario> listarUsuarios(){
+        return usuarioRepository.findAll();
+    }
+
+    public Usuario atualizarUsuario(Long id, UsuarioAtualizacaoDTO dados) {
+        Usuario usuario = buscarUsuarioId(id);
+
+        if(verificarEmail(dados.email()) && !dados.email().equals(usuario.getEmail())) {
+            throw new EmailJaCadastradoException("Email já cadastrado!");
+        }
+
+        usuario.setNomeCompleto(dados.nomeCompleto());
+        usuario.setEmail(dados.email());
+        usuario.setCidade(dados.cidade());
+        usuario.setEstado(dados.estado());
+        usuario.setVoluntario(dados.voluntario());
+
+        return usuarioRepository.save(usuario);
     }
 }
