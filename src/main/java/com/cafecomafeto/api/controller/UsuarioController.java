@@ -97,4 +97,9 @@ public class UsuarioController {
                 usuarioSalvo.getCriadoEm()
         );
     }
+
+    @DeleteMapping("/{id}")
+    public void excluirUsuario(@PathVariable Long id){
+        usuarioService.excluirUsuario(id);
+    }
 }

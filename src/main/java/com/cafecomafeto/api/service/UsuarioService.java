@@ -40,6 +40,8 @@ public class UsuarioService {
     }
 
     public void excluirUsuario(Long id) {
+        buscarUsuarioId(id);
+
         usuarioRepository.deleteById(id);
     }
 
